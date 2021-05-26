@@ -1,12 +1,14 @@
-Feature: The Internet Guinea Pig Website
+Feature: The Internet SwagLabs Website
 
-  Scenario Outline: As a user, I can log into the secure area
+  Scenario Outline: As a user, I can log into website
 
     Given I am on the login page
     When I login with <username> and <password>
-    Then I should see a flash message saying <message>
+    Then My page's URL equals <URL>
 
     Examples:
-      | username | password             | message                        |
-      | tomsmith | SuperSecretPassword! | You logged into a secure area! |
-      | foobar   | barfoo               | Your username is invalid!      |
+      | username                | password     | URL                                      |
+      | standard_user           | secret_sauce | https://www.saucedemo.com/inventory.html |
+      | locked_out_user         | secret_sauce | https://www.saucedemo.com/inventory.html |
+      | problem_user            | secret_sauce | https://www.saucedemo.com/inventory.html |
+      | performance_glitch_user | secret_sauce | https://www.saucedemo.com/inventory.html |

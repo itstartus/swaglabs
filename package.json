@@ -19,6 +19,7 @@
   "homepage": "https://github.com/itstartus/swaglabs#readme",
   "dependencies": {
     "@wdio/cli": "^7.6.1",
+    "@wdio/spec-reporter": "^7.6.1",
     "chai": "^4.3.4"
   },
   "devDependencies": {

@@ -28,7 +28,7 @@ exports.config = {
     ],
     // Patterns to exclude.
     exclude: [
-        // 'path/to/excluded/files'
+        './features/**/login.feature'
     ],
     //
     // ============
@@ -135,7 +135,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['junit'],
+    reporters: ['spec','junit'],
 
 
     //

@@ -1,7 +1,8 @@
 import { Given, When, Then } from '@cucumber/cucumber';
-
 import LoginPage from '../pageobjects/login.page';
-import SecurePage from '../pageobjects/secure.page';
+import users from '../input/users';
+
+const expect = require('chai').expect;
 
 const pages = {
     login: LoginPage
@@ -15,8 +16,11 @@ When(/^I login with (\w+) and (.+)$/, async (username, password) => {
     await LoginPage.login(username, password)
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect(SecurePage.flashAlert).toBeExisting();
-    await expect(SecurePage.flashAlert).toHaveTextContaining(message);
+When(/^I login as (\w+\_*)$/, async (user) => {
+    await LoginPage.login(users[user].login, users[user].password);
+});
+
+Then(/^My page\'s URL equals (.*)$/, async (URL) => {
+    await expect(await browser.getUrl()).to.equal(URL);
 });
 
