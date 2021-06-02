@@ -14,6 +14,14 @@ class InventoryPage extends Page {
   get itemDescriptionList() {
     return $$(".inventory_item_desc");
   }
+  
+  get itemPriceList() {
+    return $$(".inventory_item_price");
+  }
+
+  get itemNameList() {
+    return $$(".inventory_item_name");
+  }
 
   //this method takes array of elements as a parameter and returns the array of texts that these
   //elements contain
@@ -32,6 +40,16 @@ class InventoryPage extends Page {
   async btnAddToCartListText() {
     return await this.getItemTexts(await this.btnAddToCartList);
   }
+
+  async itemPriceListText() {
+    return await this.getItemTexts(await this.itemPriceList);
+  }
+
+  async itemNameListText() {
+    return await this.getItemTexts(await this.itemNameList);
+  }
+
+
 }
 
 export default new InventoryPage();

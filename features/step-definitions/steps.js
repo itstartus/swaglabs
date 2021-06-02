@@ -37,6 +37,16 @@ Then(/^Each item has a non-empty description$/, async () => {
     expect(itemDescriptionListText.filter(el => el.length > 0).length).to.equal(itemDescriptionListText.length);
 });
 
+Then(/^On each item I see price greater than zero$/, async () => {
+    let itemPriceListText = await InventoryPage.itemPriceListText();
+    expect(itemPriceListText.filter(el => el[0] === '$' && Number(el.slice(1)) > 0).length).to.equal(itemPriceListText.length);
+});
+
+Then(/^On each item I see name$/, async () => {
+    let itemNameListText = await InventoryPage.itemNameListText();
+    expect(itemNameListText.filter(el => el.length > 0).length).to.equal(itemNameListText.length);
+});
+
 
 
 
