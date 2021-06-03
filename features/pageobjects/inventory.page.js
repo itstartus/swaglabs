@@ -14,13 +14,25 @@ class InventoryPage extends Page {
   get itemDescriptionList() {
     return $$(".inventory_item_desc");
   }
-  
+
   get itemPriceList() {
     return $$(".inventory_item_price");
   }
 
   get itemNameList() {
     return $$(".inventory_item_name");
+  }
+
+  get productPageItemName() {
+    return $(".inventory_details_name.large_size");
+  }
+
+  get btnMenu() {
+    return $("#react-burger-menu-btn");
+  }
+
+  get menuDrawer() {
+    return $(".bm-menu-wrap");
   }
 
   //this method takes array of elements as a parameter and returns the array of texts that these
@@ -48,8 +60,6 @@ class InventoryPage extends Page {
   async itemNameListText() {
     return await this.getItemTexts(await this.itemNameList);
   }
-
-
 }
 
 export default new InventoryPage();

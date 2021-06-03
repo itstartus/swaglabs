@@ -20,5 +20,15 @@ Feature: E2E test for standard user
         Then On each item I see price greater than zero
 
     Scenario:  Validate that all items have names
+
+        Then On each item I see name
+
+    Scenario:  Click on each product and check that target page is valid
+
+        Then I click on each item and I see correct item page
+
+    Scenario: Validate that the side bar exists and is clickable
     
-        Then  On each item I see name
+        Given The side drawer is hidden
+        When I click on menu button
+        Then The side drawer appears
