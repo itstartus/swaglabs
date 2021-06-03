@@ -28,7 +28,23 @@ Feature: E2E test for standard user
         Then I click on each item and I see correct item page
 
     Scenario: Validate that the side bar exists and is clickable
-    
+
         Given The side drawer is hidden
         When I click on menu button
         Then The side drawer appears
+
+    Scenario Outline: Check that each menu item takes user to the correct page
+
+        Given I am on the inventory page
+        When I click on menu button
+        When I click on <link>
+        Then I see correct <page>
+
+
+        Examples:
+
+            | link      | page                                     |
+            | ALL ITEMS | https://www.saucedemo.com/inventory.html |
+            | ABOUT     | https://saucelabs.com/                   |
+            | LOGOUT    | https://www.saucedemo.com/               |
+
