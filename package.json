@@ -20,6 +20,7 @@
   "dependencies": {
     "@wdio/cli": "^7.6.1",
     "@wdio/spec-reporter": "^7.6.1",
+    "axios": "^0.21.1",
     "chai": "^4.3.4",
     "wdio-spec-reporter": "^0.1.5"
   },

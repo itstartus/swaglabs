@@ -35,6 +35,22 @@ class InventoryPage extends Page {
     return $(".bm-menu-wrap");
   }
 
+  get linkAllItems() {
+    return $("#inventory_sidebar_link");
+  }
+
+  get linkAbout() {
+    return $("#about_sidebar_link");
+  }
+
+  get linkLogout() {
+    return $("#logout_sidebar_link");
+  }
+
+  get productImages(){
+    return $$('.inventory_item_img img');
+  }
+
   //this method takes array of elements as a parameter and returns the array of texts that these
   //elements contain
 

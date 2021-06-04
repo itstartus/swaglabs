@@ -43,8 +43,15 @@ Feature: E2E test for standard user
 
         Examples:
 
-            | link      | page                                     |
-            | ALL ITEMS | https://www.saucedemo.com/inventory.html |
-            | ABOUT     | https://saucelabs.com/                   |
-            | LOGOUT    | https://www.saucedemo.com/               |
+            | link     | page                                     |
+            | allitems | https://www.saucedemo.com/inventory.html |
+            | about    | https://saucelabs.com/                   |
+            | logout   | https://www.saucedemo.com/               |
+
+
+    Scenario: Validate all images on the page
+
+        Given I am on the inventory page
+        Then All images are displayed
+
 

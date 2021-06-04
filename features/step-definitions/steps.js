@@ -4,11 +4,19 @@ import users from "../input/users";
 import InventoryPage from "../pageobjects/inventory.page";
 
 const expect = require("chai").expect;
+const axios = require('axios');
 
 const pages = {
   login: LoginPage,
   inventory: InventoryPage,
 };
+
+const links = {
+  allitems: InventoryPage.linkAllItems,
+  about: InventoryPage.linkAbout,
+  logout: InventoryPage.linkLogout
+}
+
 // I am on the login page
 // I am on the inventory page
 Given(/^I am on the (\w+) page$/, async (page) => {
@@ -83,4 +91,27 @@ Then(/^The side drawer appears$/, async () => {
     const menuDrawer = await InventoryPage.menuDrawer;
     const attrAriaHidden = await menuDrawer.getAttribute("aria-hidden");
     expect(attrAriaHidden).to.equal("false");
+});
+
+When(/^I click on (\w+)$/, async (link) => {
+  const item = await links[link];
+  await item.click();
+});
+
+Then(/^I see correct (.+)$/, async (page) => {
+  const pageURL = await browser.getUrl();
+  expect(pageURL).to.equal(page);
+});
+
+Then(/^All images are displayed$/, async () => {
+  const allImages = await InventoryPage.productImages;
+  for(let image of allImages){
+    let src = await image.getAttribute('src');
+    try {
+      const response = await axios.get(src);
+      expect(response.status).to.equal(200);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 });
