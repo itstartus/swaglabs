@@ -51,6 +51,21 @@ class InventoryPage extends Page {
     return $$('.inventory_item_img img');
   }
 
+  get cartBadge(){
+    return $(".shopping_cart_badge");
+  }
+
+  async btnAddToCart(label) {
+    const name = 'add-to-cart-' + label.split(' ').map(el => el.toLowerCase()).join('-');
+    return await $(`[name = "${name}"]`);
+  }
+
+  async btnRemove(label) {
+    const name = 'remove-' + label.split(' ').map(el => el.toLowerCase()).join('-');
+    return await $(`[name = "${name}"]`);
+  }
+  //remove-sauce-labs-onesie
+
   //this method takes array of elements as a parameter and returns the array of texts that these
   //elements contain
 

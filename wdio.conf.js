@@ -24,12 +24,12 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './features/**/*.feature'
+        './features/**/e2e_standard_user.feature'
     ],
     // Patterns to exclude.
     exclude: [
         './features/**/login.feature',
-        './features/**/test.feature'
+        //'./features/**/test.feature'
     ],
     //
     // ============

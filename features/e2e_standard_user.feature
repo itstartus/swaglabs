@@ -33,6 +33,31 @@ Feature: E2E test for standard user
         When I click on menu button
         Then The side drawer appears
 
+
+    Scenario: Validate all images on the page
+
+        Given I am on the inventory page
+        Then All images are displayed
+
+    Scenario Outline:  Click on ADD TO CART button and validate the amount of items in the cart has increased by one and the button changed its label to REMOVE
+
+        When I add to cart <product>
+        Then Add to cart button text changes to Remove for <product>
+        Then Shopping cart badge number changes to <number>
+
+        Examples:
+
+            | product                           | number |
+            | Sauce Labs Backpack               | 1      |
+            | Sauce Labs Bike Light             | 2      |
+            | Sauce Labs Bolt T-Shirt           | 3      |
+            | Sauce Labs Fleece Jacket          | 4      |
+            | Sauce Labs Onesie                 | 5      |
+            | Test.allTheThings() T-Shirt (Red) | 6      |
+
+
+
+
     Scenario Outline: Check that each menu item takes user to the correct page
 
         Given I am on the inventory page
@@ -47,11 +72,5 @@ Feature: E2E test for standard user
             | allitems | https://www.saucedemo.com/inventory.html |
             | about    | https://saucelabs.com/                   |
             | logout   | https://www.saucedemo.com/               |
-
-
-    Scenario: Validate all images on the page
-
-        Given I am on the inventory page
-        Then All images are displayed
 
 

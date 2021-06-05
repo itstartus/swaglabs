@@ -4,7 +4,7 @@ import users from "../input/users";
 import InventoryPage from "../pageobjects/inventory.page";
 
 const expect = require("chai").expect;
-const axios = require('axios');
+const axios = require("axios");
 
 const pages = {
   login: LoginPage,
@@ -14,8 +14,8 @@ const pages = {
 const links = {
   allitems: InventoryPage.linkAllItems,
   about: InventoryPage.linkAbout,
-  logout: InventoryPage.linkLogout
-}
+  logout: InventoryPage.linkLogout,
+};
 
 // I am on the login page
 // I am on the inventory page
@@ -77,20 +77,20 @@ Then(/^I click on each item and I see correct item page$/, async () => {
 });
 
 Given(/^The side drawer is hidden$/, async () => {
-    const menuDrawer = await InventoryPage.menuDrawer;
-    const attrAriaHidden = await menuDrawer.getAttribute("aria-hidden");
-    expect(attrAriaHidden).to.equal("true");
+  const menuDrawer = await InventoryPage.menuDrawer;
+  const attrAriaHidden = await menuDrawer.getAttribute("aria-hidden");
+  expect(attrAriaHidden).to.equal("true");
 });
 
 When(/^I click on menu button$/, async () => {
-    const btnMenu = await InventoryPage.btnMenu;
-    await btnMenu.click();
+  const btnMenu = await InventoryPage.btnMenu;
+  await btnMenu.click();
 });
 
 Then(/^The side drawer appears$/, async () => {
-    const menuDrawer = await InventoryPage.menuDrawer;
-    const attrAriaHidden = await menuDrawer.getAttribute("aria-hidden");
-    expect(attrAriaHidden).to.equal("false");
+  const menuDrawer = await InventoryPage.menuDrawer;
+  const attrAriaHidden = await menuDrawer.getAttribute("aria-hidden");
+  expect(attrAriaHidden).to.equal("false");
 });
 
 When(/^I click on (\w+)$/, async (link) => {
@@ -105,8 +105,8 @@ Then(/^I see correct (.+)$/, async (page) => {
 
 Then(/^All images are displayed$/, async () => {
   const allImages = await InventoryPage.productImages;
-  for(let image of allImages){
-    let src = await image.getAttribute('src');
+  for (let image of allImages) {
+    let src = await image.getAttribute("src");
     try {
       const response = await axios.get(src);
       expect(response.status).to.equal(200);
@@ -115,3 +115,19 @@ Then(/^All images are displayed$/, async () => {
     }
   }
 });
+
+When(/^I add to cart (.+)$/, async (label) => {
+  const btnAddToCart = await InventoryPage.btnAddToCart(label);
+  await btnAddToCart.click();
+});
+
+Then(/^Add to cart button text changes to Remove for (.+)$/, async (label) => {
+  const btnRemove = await InventoryPage.btnRemove(label);
+  expect((await btnRemove.getText()).toLowerCase()).to.equal("remove");
+});
+
+Then(/^Shopping cart badge number changes to (.+)$/, async (number) => {
+  const cartBadge = await InventoryPage.cartBadge;
+  expect(await cartBadge.getText()).to.equal(number);
+});
+
