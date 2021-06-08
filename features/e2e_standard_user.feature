@@ -55,7 +55,29 @@ Feature: E2E test for standard user
             | Sauce Labs Onesie                 | 5      |
             | Test.allTheThings() T-Shirt (Red) | 6      |
 
+    Scenario Outline: Click on Remove button and validate the amount of items in the cart reduced and label changed to Add to Cart
 
+        When I remove from cart <product>
+        Then Remove button text changes to Add to Cart for <product>
+        Then Shopping cart badge number changes to <number>
+
+        Examples:
+
+            | product                           | number |
+            | Sauce Labs Backpack               | 5      |
+            | Sauce Labs Bike Light             | 4      |
+            | Sauce Labs Bolt T-Shirt           | 3      |
+            | Sauce Labs Fleece Jacket          | 2      |
+            | Sauce Labs Onesie                 | 1      |
+            | Test.allTheThings() T-Shirt (Red) | 0      |
+
+    Scenario: Click on Cart button and validate that user gets directed to Your Cart page
+        
+        When I click on Cart icon
+        Then I see correct https://www.saucedemo.com/cart.html
+        Then I see QTY and Description labels
+      
+  
 
 
     Scenario Outline: Check that each menu item takes user to the correct page

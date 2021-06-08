@@ -55,6 +55,18 @@ class InventoryPage extends Page {
     return $(".shopping_cart_badge");
   }
 
+  get cartIcon(){
+    return $("#shopping_cart_container");
+  }
+
+  get qtyLabel(){
+    return $(".cart_quantity_label");
+  }
+
+  get descLabel(){
+    return $(".cart_desc_label");
+  }
+
   async btnAddToCart(label) {
     const name = 'add-to-cart-' + label.split(' ').map(el => el.toLowerCase()).join('-');
     return await $(`[name = "${name}"]`);

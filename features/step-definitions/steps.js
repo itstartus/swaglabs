@@ -2,6 +2,7 @@ import { Given, When, Then } from "@cucumber/cucumber";
 import LoginPage from "../pageobjects/login.page";
 import users from "../input/users";
 import InventoryPage from "../pageobjects/inventory.page";
+import inventoryPage from "../pageobjects/inventory.page";
 
 const expect = require("chai").expect;
 const axios = require("axios");
@@ -127,7 +128,36 @@ Then(/^Add to cart button text changes to Remove for (.+)$/, async (label) => {
 });
 
 Then(/^Shopping cart badge number changes to (.+)$/, async (number) => {
-  const cartBadge = await InventoryPage.cartBadge;
-  expect(await cartBadge.getText()).to.equal(number);
+  if (number === "0") {
+  
+    const cartBadge = await InventoryPage.cartBadge;
+      await browser.pause(2000);
+    expect(await cartBadge.isExisting()).to.be.false;
+  } else {
+    const cartBadge = await InventoryPage.cartBadge;
+    expect(await cartBadge.getText()).to.equal(number);
+  }
 });
 
+When(/^I remove from cart (.+)$/, async (label) => {
+  const btnRemove = await InventoryPage.btnRemove(label);
+  await btnRemove.click();
+});
+
+Then(/^Remove button text changes to Add to Cart for (.+)$/, async (label) => {
+  const btnAddToCart = await InventoryPage.btnAddToCart(label);
+  expect((await btnAddToCart.getText()).toLowerCase()).to.equal("add to cart");
+});
+
+
+When(/^I click on Cart icon$/, async () => {
+  const cartIcon = await InventoryPage.cartIcon;
+  await cartIcon.click();
+});
+
+Then(/^I see QTY and Description labels$/, async () => {
+  const qtyLabel = await InventoryPage.qtyLabel;
+  const descLabel = await InventoryPage.descLabel;
+  expect(await qtyLabel.isDisplayed()).to.equal(true);
+  expect(await descLabel.isDisplayed()).to.equal(true);
+});
