@@ -24,7 +24,7 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './features/**/e2e_standard_user.feature'
+        './features/**/cucumber_tables.feature'
     ],
     // Patterns to exclude.
     exclude: [

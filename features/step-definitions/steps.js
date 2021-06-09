@@ -2,7 +2,7 @@ import { Given, When, Then } from "@cucumber/cucumber";
 import LoginPage from "../pageobjects/login.page";
 import users from "../input/users";
 import InventoryPage from "../pageobjects/inventory.page";
-import inventoryPage from "../pageobjects/inventory.page";
+import Cart from "../pageobjects/cart.page";
 
 const expect = require("chai").expect;
 const axios = require("axios");
@@ -161,3 +161,22 @@ Then(/^I see QTY and Description labels$/, async () => {
   expect(await qtyLabel.isDisplayed()).to.equal(true);
   expect(await descLabel.isDisplayed()).to.equal(true);
 });
+
+
+Given(/^I see the following products and their prices$/, async (table) => {
+  let products = table.hashes();
+  const productNames = await InventoryPage.itemNameListText();
+  for(let element of products){
+    expect(productNames.indexOf(element.product)).to.not.equal(-1);
+    expect(element.price).to.equal(await (await InventoryPage.price(element.product)).getText());
+  }
+ // console.log(products);
+});
+
+Then(/^I see (\w+) in the cart with a valid price$/, async (label) => {
+  let items = await Cart.itemNameListText();
+  label = label.split('_').join(' ');
+  expect(items.indexOf(label)).to.not.equal(-1);
+  
+});
+
