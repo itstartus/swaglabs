@@ -14,6 +14,18 @@ class Cart {
   async itemNameListText() {
     return await this.getItemTexts(await this.items);
   }
+
+  get itemDescriptions() {
+    return $$(".inventory_item_desc");
+  }
+
+  get btnContinueShopping(){
+    return $('#continue-shopping');
+  }
+
+  get btnCheckout(){
+    return $('#checkout');
+  }
 }
 
 export default new Cart();

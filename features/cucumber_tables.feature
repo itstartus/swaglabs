@@ -19,5 +19,9 @@ Feature: This is how we process tables in cucumber
             | Test.allTheThings() T-Shirt (Red) | $15.99 |
 
         When I add to cart Sauce Labs Backpack
+        When I add to cart Sauce Labs Bike Light
+        When I add to cart Sauce Labs Fleece Jacket
         When I click on Cart icon
-        Then I see Sauce_Labs_Backpack in the cart with a valid price
+        Then I see Sauce_Labs_Backpack in the cart with a price of $29.99
+        Then I see Sauce_Labs_Bike_Light in the cart with a price of $9.99
+        Then I see Sauce_Labs_Fleece_Jacket in the cart with a price of $49.99

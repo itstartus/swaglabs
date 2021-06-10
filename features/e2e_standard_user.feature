@@ -71,13 +71,57 @@ Feature: E2E test for standard user
             | Sauce Labs Onesie                 | 1      |
             | Test.allTheThings() T-Shirt (Red) | 0      |
 
+    Scenario: Once on the Cart page I click on Remove button. Validate that Qty, description and remove button dissapear
+
+        Given I am on the inventory page
+        When I add to cart Sauce Labs Bike Light
+        When I click on Cart icon
+        When From the Cart page I remove Sauce Labs Bike Light
+        Then These items dissapear from the Cart page
+
+            | item        |
+            | Qty         |
+            | Description |
+            | Remove      |
+
+    Scenario Outline: From product page add the product to cart and validate that amount of items in the cart has increased by one and the button changed its label to Remove
+
+        Given I am on the inventory page
+        When I click on the <product>
+        Then I see a page for the <product>
+        Then I see the name and the price of <product>
+        When From product page I add to cart the <product>
+        Then On product page add to cart button text changes to Remove for <product>
+        Then Shopping cart badge number changes to <number>
+
+        Examples:
+
+            | product                           | number |
+            | Sauce Labs Backpack               | 1      |
+            | Sauce Labs Bike Light             | 2      |
+            | Sauce Labs Bolt T-Shirt           | 3      |
+            | Sauce Labs Fleece Jacket          | 4      |
+            | Sauce Labs Onesie                 | 5      |
+            | Test.allTheThings() T-Shirt (Red) | 6      |
+
+
+
+    Scenario: From product page click on Back to products button and validate that user gets navigated to the inventory page
+
+        Given I am on the inventory page
+        When I click on the Sauce Labs Backpack
+        Then I see a page for the Sauce Labs Backpack
+        When I click on Back to products button
+        Then My page's URL equals https://www.saucedemo.com/inventory.html
+
     Scenario: Click on Cart button and validate that user gets directed to Your Cart page
-        
+
         When I click on Cart icon
         Then I see correct https://www.saucedemo.com/cart.html
         Then I see QTY and Description labels
-      
-  
+        Then I see products descriptions
+        When I click on continue shopping button
+        Then Then My page's URL equals https://www.saucedemo.com/inventory.html
 
 
     Scenario Outline: Check that each menu item takes user to the correct page

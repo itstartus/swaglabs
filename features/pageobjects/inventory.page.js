@@ -71,6 +71,10 @@ class InventoryPage extends Page {
     return await $(`//div[@class='inventory_item_description'][./div[@class='inventory_item_label']/a/div[text()='${label}']]/div[@class='pricebar']/div`);
   }
 
+  async product(label){
+    return await $(`//*[@class='inventory_item_name'][text() = '${label}']`);
+  }
+
   async btnAddToCart(label) {
     const name = 'add-to-cart-' + label.split(' ').map(el => el.toLowerCase()).join('-');
     return await $(`[name = "${name}"]`);

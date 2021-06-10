@@ -3,6 +3,7 @@ import LoginPage from "../pageobjects/login.page";
 import users from "../input/users";
 import InventoryPage from "../pageobjects/inventory.page";
 import Cart from "../pageobjects/cart.page";
+import Product from "../pageobjects/product.page";
 
 const expect = require("chai").expect;
 const axios = require("axios");
@@ -173,10 +174,60 @@ Given(/^I see the following products and their prices$/, async (table) => {
  // console.log(products);
 });
 
-Then(/^I see (\w+) in the cart with a valid price$/, async (label) => {
+Then(/^I see (\w+) in the cart with a price of (.+)$/, async (label, price) => {
   let items = await Cart.itemNameListText();
   label = label.split('_').join(' ');
   expect(items.indexOf(label)).to.not.equal(-1);
+  expect(await (await Cart.itemPrice(label)).getText()).to.equal(price);
   
 });
 
+When(/^I click on the (.+)$/, async (product) => {
+  console.log(product);
+  const productLink = await InventoryPage.product(product);
+  await productLink.click();
+});
+
+Then(/^I see a page for the (.+)$/, async (product) => {
+  const productName = await Product.productName;
+  await productName.waitForDisplayed({timeout:5000});
+  const actualProductName = await productName.getText();
+  expect(actualProductName).to.equal(product);
+});
+
+When(/^From product page I add to cart the (.+)$/, async (product) => {
+  const btnAddToCart = await Product.btnAddToCart(product);
+  await btnAddToCart.click();
+});
+
+Then(/^On product page add to cart button text changes to Remove for (.+)$/, async (product) => {
+  const btnRemove = await Product.btnRemove(product)
+  expect((await btnRemove.getText()).toLowerCase()).to.equal('remove');
+});
+
+When(/^I click on Back to products button$/, async () => {
+  const btnBackToProducts = await Product.btnBackToProducts;
+  await btnBackToProducts.click();
+});
+
+Then(/^I see the name and the price of (.+)$/, async (product) => {
+  const productName = await Product.productName;
+  await productName.waitForDisplayed({timeout:5000});
+  expect(await productName.isDisplayed()).to.be.true;
+  const productPrice = await Product.itemPrice;
+  expect(await productPrice.isDisplayed()).to.be.true;
+});
+
+
+Then(/^I see products descriptions$/, async () => {
+  const itemDescriptions = await Cart.itemDescriptions;
+  for(itemDesc of itemDescriptions){
+    await itemDesc.waitForDisplayed({timeout:5000});
+    expect(await itemDesc.isDisplayed()).to.be.true;
+  }
+});
+
+When(/^I click on continue shopping button$/, async () => {
+  const btnContinueShopping = await Cart.btnContinueShopping;
+  await btnContinueShopping.click();
+});
