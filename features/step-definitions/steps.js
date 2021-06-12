@@ -4,6 +4,7 @@ import users from "../input/users";
 import InventoryPage from "../pageobjects/inventory.page";
 import Cart from "../pageobjects/cart.page";
 import Product from "../pageobjects/product.page";
+import Checkout from "../pageobjects/checkout.page";
 
 const expect = require("chai").expect;
 const axios = require("axios");
@@ -249,7 +250,28 @@ Then(/^These items dissapear from the Cart page$/, async (table) => {
   }
 });
 
-When(/^I click on checkout button$/, async () => {
+When(/^I click on Checkout button$/, async () => {
   const btnCheckout = await Cart.btnCheckout;
   await btnCheckout.click();
+});
+
+
+When(/^I fill out the checkout from$/, async (table) => {
+  let data = await table.hashes();
+  let obj = {
+    firstName: data[0].value,
+    lastName: data[1].value,
+    zipCode: data[2].value
+  }
+  await Checkout.fillForm(obj);
+});
+
+When(/^I click on Continue button$/, async () => {
+  const btnContinue = await Checkout.btnContinue;
+  await btnContinue.click();
+});
+
+When(/^I click on Finish button$/, async () => {
+  const btnFinish = await Checkout.btnFinish;
+  await btnFinish.click();
 });
