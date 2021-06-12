@@ -249,3 +249,7 @@ Then(/^These items dissapear from the Cart page$/, async (table) => {
   }
 });
 
+When(/^I click on checkout button$/, async () => {
+  const btnCheckout = await Cart.btnCheckout;
+  await btnCheckout.click();
+});

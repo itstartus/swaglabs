@@ -123,6 +123,11 @@ Feature: E2E test for standard user
         When I click on continue shopping button
         Then My page's URL equals https://www.saucedemo.com/inventory.html
 
+    Scenario: Once on Your Cart page user clicks on checkout button and gets directed to checkout page
+        When I click on Cart icon
+        When I click on checkout button
+        Then I see correct https://www.saucedemo.com/checkout-step-one.html
+
 
     Scenario Outline: Check that each menu item takes user to the correct page
 
