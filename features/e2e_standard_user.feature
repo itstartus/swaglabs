@@ -121,7 +121,7 @@ Feature: E2E test for standard user
         Then I see QTY and Description labels
         Then I see products descriptions
         When I click on continue shopping button
-        Then Then My page's URL equals https://www.saucedemo.com/inventory.html
+        Then My page's URL equals https://www.saucedemo.com/inventory.html
 
 
     Scenario Outline: Check that each menu item takes user to the correct page

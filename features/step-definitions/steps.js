@@ -221,7 +221,7 @@ Then(/^I see the name and the price of (.+)$/, async (product) => {
 
 Then(/^I see products descriptions$/, async () => {
   const itemDescriptions = await Cart.itemDescriptions;
-  for(itemDesc of itemDescriptions){
+  for(let itemDesc of itemDescriptions){
     await itemDesc.waitForDisplayed({timeout:5000});
     expect(await itemDesc.isDisplayed()).to.be.true;
   }
@@ -231,3 +231,21 @@ When(/^I click on continue shopping button$/, async () => {
   const btnContinueShopping = await Cart.btnContinueShopping;
   await btnContinueShopping.click();
 });
+
+When(/^From the Cart page I remove (.+)$/, async (product) => {
+  const btnRemove = await Cart.btnRemove(product);
+  await btnRemove.click();
+});
+
+Then(/^These items dissapear from the Cart page$/, async (table) => {
+  const elementsToCheck = {
+    Qty : await Cart.cartQuantity,
+    Description : await Cart.itemDescriptions,
+    Remove: await Cart.btnRemove()
+  } 
+  const elements = await table.hashes(); 
+  for(let el of elements){
+    expect((await elementsToCheck[el.item]).length).to.equal(0);
+  }
+});
+

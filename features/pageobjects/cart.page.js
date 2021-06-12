@@ -26,6 +26,36 @@ class Cart {
   get btnCheckout(){
     return $('#checkout');
   }
+
+  async btnAddToCart(label) {
+    const name = 'add-to-cart-' + label.split(' ').map(el => el.toLowerCase()).join('-');
+    return await $(`[name = "${name}"]`);
+  }
+
+  async btnRemove(label) {
+    if (label){
+      const name = 'remove-' + label.split(' ').map(el => el.toLowerCase()).join('-');
+      return await $(`[name = "${name}"]`);
+    }
+
+    else {
+      return await $$(`//button[text() = "Remove"]`);
+    }
+   
+  }
+
+  get cartQuantity(){
+    return $$('.cart_quantity');
+  }
+
+  get qtyLabel(){
+    return $(".cart_quantity_label");
+  }
+
+  get descLabel(){
+    return $(".cart_desc_label");
+  }
+
 }
 
 export default new Cart();
